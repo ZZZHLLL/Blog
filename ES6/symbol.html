@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>symbol</title>
+</head>
+
+<body>
+    <script>
+
+        const s1 = Symbol()
+        console.log(s1)
+        const s2 = Symbol(42)
+        console.log(s2)
+        const s3 = Symbol("42")
+        console.log(s3)
+        const s4 = Symbol(false)
+        console.log(s4)
+        const s5 = Symbol({ name: 'sym' })
+        console.log(s5)
+        const s6 = Symbol(null)
+        console.log(s6)
+        const s7 = Symbol(undefined)
+        console.log(s7)
+        const s8 = Symbol(1234567890123456789012345678901234567890n)
+        console.log(s8)
+        // const s9 = Symbol(Symbol())
+        // console.log(s9)
+
+        // ## 对象的属性除了用字符串作为属性名，还可以用symbol值
+        const id = Symbol('id')
+        const obj = {
+            name: '张三',
+            age: 19,
+            [id]: 66666
+        }
+        obj[id] = 8888888
+        obj[Symbol()] = "笑嘻嘻"
+        console.log(obj)
+        console.log(obj[id])
+
+        // ## symbol 属性不参与 for..in 循环
+        const age = Symbol('age')
+        let user = {
+            name: '小红',
+            sex: '女',
+            [age]: 18
+
+        }
+
+        for (item in user) {
+            console.log(item)  //user 、  sex
+        }
+
+
+
+        console.log('-----------')
+        {
+            let user = {
+                name: '小红',
+                sex: '女',
+                [age]: 18
+            }
+
+            let clone = Object.assign({}, user)
+            console.log('clone', clone)
+
+        }
+
+
+
+
+        //## Symbol.for(key) 方法会根据给定的键 key，从运行时的 symbol 注册表中找到对应的 symbol，如果找到了，则返回它，
+        //否则，新建一个与该键关联的 symbol，并放入全局 symbol 注册表中。
+        const sym1 = Symbol.for('张')
+        const sym2 = Symbol.for('张')
+        console.log(sym1 === sym2)
+
+
+        //## Symbol.for(key) 按名字返回一个 symbol。Symbol.keyFor(sym)根据全局symbol返回名字
+        {
+            let sym = Symbol.for("name");
+            let sym2 = Symbol.for("id");
+
+            // 通过 symbol 获取 name
+            console.log(Symbol.keyFor(sym)); // name
+            console.log(Symbol.keyFor(sym2)); // id
+        }
+
+    </script>
+</body>
+
+</html>
